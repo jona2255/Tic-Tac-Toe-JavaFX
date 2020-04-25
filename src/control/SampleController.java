@@ -38,6 +38,7 @@ public class SampleController implements Initializable {
         posInicial();
     }
 
+    // Reiniciamosla ventana para volver a jugar
     @FXML
     public void reinicio() {
 
@@ -51,6 +52,7 @@ public class SampleController implements Initializable {
 
     }
 
+    // Muestra la ventana inicial
     @FXML
     void posInicial() {
 
@@ -98,6 +100,8 @@ public class SampleController implements Initializable {
 
     }
 
+    // Al clickar en una casilla, comprueba en que turno se clicka (para saber si es jugador 1 o jugador 2), y envia la posición que se clicka.
+    // Tambien mustra una cruz o un circulo (dependiendo del turno) en la posición elegida.
     @FXML
     private void marcarPos(Event event) {
 

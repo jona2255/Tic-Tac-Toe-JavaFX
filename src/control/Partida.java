@@ -12,8 +12,10 @@ public class Partida {
     int puntosEmpate = 0;
     int turno = 1;
 
+    // Matriz para comprobar las posiciones ganadoras
     private int[][] wins = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 1, 4, 7 }, { 3, 6, 9 }, { 2, 5, 8 }, { 1, 5, 9 }, { 7, 5, 3 } };
 
+    // Listas para guardar las posiciones de los jugadores
     ArrayList<Integer> posicionesJug1 = new ArrayList<>();
     ArrayList<Integer> posicionesJug2 = new ArrayList<>();
 
@@ -21,6 +23,8 @@ public class Partida {
         this.sampleController = sampleController;
     }
 
+    // Añadimos la posición a la lista correspondiente y comprobamos si ha ganado la partida.
+    // Tambnién pasamos un número para controlar quien es el juagdordel turno jugado. (Jugador 1 = 1, Jugador 2 = 2)
     public void jugarTurno(int pos){
 
         // turnos impares
@@ -42,8 +46,11 @@ public class Partida {
     }
 
 
+    // Comprueba si el jugador ha ganado la partida,
+    // Le pasamos la lista con las posiciones del jugador a comprobar, y el numero del jugador
    void comprobarGanador(ArrayList jugador, int numJugador){
 
+        // booleano para comprobar si algún jugador ha ganado.
        boolean ganador = false;
 
        for (int i = 0; i < wins.length; i++) {
@@ -67,13 +74,14 @@ public class Partida {
                break;
            }
        }
-
+       // Comprueba si no quedan más jugadas y no hay ganador y llama al metodo empatar
        if (posicionesJug1.size() == 5 && posicionesJug2.size() == 4 && !ganador){
            empate();
        }
 
    }
 
+   // Suma un punto al jugador ganador y reinicia la partida
     private void ganar(int jugador){
 
         if (jugador == 1){
@@ -86,6 +94,7 @@ public class Partida {
 
     }
 
+    // Suma 1 al contador de empate y reinicia la partida
     private void empate(){
 
         puntosEmpate++;
