@@ -1,12 +1,15 @@
 package control;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Partida {
 
+    SampleController sampleController;
+
     int puntosJug1 = 0;
     int puntosJug2 = 0;
-
+    int puntosEmpate = 0;
     int turno = 1;
 
     private int[][] wins = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 1, 4, 7 }, { 3, 6, 9 }, { 2, 5, 8 }, { 1, 5, 9 }, { 7, 5, 3 } };
@@ -14,28 +17,24 @@ public class Partida {
     ArrayList<Integer> posicionesJug1 = new ArrayList<>();
     ArrayList<Integer> posicionesJug2 = new ArrayList<>();
 
+    public Partida(SampleController sampleController) {
+        this.sampleController = sampleController;
+    }
+
     public void jugarTurno(int pos){
 
         // turnos impares
         if (turno % 2 == 1){
             posicionesJug1.add(pos);
-            comprobarGanador(posicionesJug1);
+            comprobarGanador(posicionesJug1,1);
             turno++;
         } else {
             posicionesJug2.add(pos);
-            comprobarGanador(posicionesJug2);
+            comprobarGanador(posicionesJug2,2);
             turno++;
         }
 
 
-    }
-
-    public int getPuntosJug1() {
-        return puntosJug1;
-    }
-
-    public int getPuntosJug2() {
-        return puntosJug2;
     }
 
     public int getTurno() {
@@ -43,9 +42,9 @@ public class Partida {
     }
 
 
-   void comprobarGanador(ArrayList jugador){
+   void comprobarGanador(ArrayList jugador, int numJugador){
 
-       System.out.println("turno" + turno);
+       boolean ganador = false;
 
        for (int i = 0; i < wins.length; i++) {
 
@@ -63,16 +62,37 @@ public class Partida {
 
            }
            if (contador == 3){
-               ganar();
+               ganador = true;
+               ganar(numJugador);
                break;
            }
        }
 
+       if (posicionesJug1.size() == 5 && posicionesJug2.size() == 4 && !ganador){
+           empate();
+       }
 
    }
 
-    private void ganar() {
+    private void ganar(int jugador){
 
-        System.out.println("has ganado");
+        if (jugador == 1){
+            System.out.println("Has ganado " + "jugador 1");
+            puntosJug1++;
+        } else {
+            System.out.println("Has ganado " + "jugador 2");
+            puntosJug2++;
+        }
+
+        sampleController.reinicio();
+
+    }
+
+    private void empate(){
+
+        System.out.println("Empate");
+        puntosEmpate++;
+        sampleController.reinicio();
+
     }
 }
