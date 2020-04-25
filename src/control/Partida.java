@@ -77,10 +77,8 @@ public class Partida {
     private void ganar(int jugador){
 
         if (jugador == 1){
-            System.out.println("Has ganado " + "jugador 1");
             puntosJug1++;
         } else {
-            System.out.println("Has ganado " + "jugador 2");
             puntosJug2++;
         }
 
@@ -90,7 +88,6 @@ public class Partida {
 
     private void empate(){
 
-        System.out.println("Empate");
         puntosEmpate++;
         sampleController.reinicio();
 
